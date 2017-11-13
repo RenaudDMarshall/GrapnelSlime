@@ -4,41 +4,42 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour {
 
-    public GameObject enemyPrefab;
-    public List<WaveData> waveOne;
-    public List<GameObject> enemyList;
     public bool activate = false;
+    public int waveToSpawn = 1;
+    public GameObject enemyPrefab;
+    public List<Wave> waves;
+    public List<GameObject> enemyList;
+
 
 	// Use this for initialization
 	void Start () {
         enemyList = null;
-
-        waveOne[0].enemyPrefabToSpawn = enemyPrefab;
-        waveOne[0].locationToSpawn = new Vector3(6, 3, -1);
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		if (activate == true)
         {
-            SpawnWave(1);
+            SpawnWave(waveToSpawn);
         }
 	}
 
     public void SpawnWave(int waveNumber)
     {
-        switch (waveNumber)
+        if (waveNumber - 1 >= waves.Count)
         {
-            case 1:
-                foreach (WaveData data in waveOne)
-                {
-                    var tempEnemy = Instantiate(data.enemyPrefabToSpawn, data.locationToSpawn, Quaternion.identity);
-                    enemyList.Add(tempEnemy);
-                }
-                activate = false;
-                break;
-            default:
-                break;
+            Debug.Log("Error: specified wave not defined.");
+            activate = false;
+
+        }
+        else
+        {
+            foreach (WaveData data in waves[waveNumber - 1].waveData)
+            {
+                var tempEnemy = Instantiate(data.enemyPrefabToSpawn, data.locationToSpawn, Quaternion.identity);
+                enemyList.Add(tempEnemy);
+            }
+            activate = false;
         }
     }
 }
@@ -48,4 +49,10 @@ public class WaveData
 {
     public GameObject enemyPrefabToSpawn;
     public Vector3 locationToSpawn;
+}
+
+[System.Serializable]
+public class Wave
+{
+    public List<WaveData> waveData;
 }
