@@ -12,7 +12,7 @@ public class ChaseMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        player = GameObject.Find("slime001");
 	}
 	
 	// Update is called once per frame

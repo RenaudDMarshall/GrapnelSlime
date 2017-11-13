@@ -146,6 +146,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1217076577303900, guid: c98c38e3f8872e9498691cc7b19def33,
     type: 2}
+  waveOne:
+  - enemyPrefabToSpawn: {fileID: 0}
+    locationToSpawn: {x: 0, y: 0, z: 0}
+  enemyList: []
+  activate: 0
 --- !u!4 &180811539
 Transform:
   m_ObjectHideFlags: 0
